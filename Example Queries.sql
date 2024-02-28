@@ -3,11 +3,11 @@
 
 SELECT 
 	game_name, 
-    platform, 
+    	platform, 
 	publisher, 
-    developer, 
-    games_sold, 
-    years
+    	developer, 
+   	games_sold, 
+    	years
 FROM videogame_data.sales s
 JOIN videogame_data.game_names gn
 ON gn.game_id = s.game_id
@@ -21,7 +21,8 @@ LIMIT 10
 -- 2. Join games_sales and reviews
 -- Select a count of the number of games where both critic_score and user_score are null
 
-SELECT COUNT(*)
+SELECT 
+	COUNT(*)
 FROM videogame_data.sales s
 RIGHT JOIN videogame_data.reviews r
 ON s.game_id = r.game_id
@@ -50,8 +51,8 @@ LIMIT 10
 
 SELECT 
 	s.years, 
-    ROUND(AVG(r.critic_score),2) AS 'Avg Critic Score', 
-    COUNT(s.game_id) AS num_games
+    	ROUND(AVG(r.critic_score),2) AS 'Avg Critic Score', 
+    	COUNT(s.game_id) AS num_games
 FROM videogame_data.sales s
 JOIN videogame_data.reviews r
 ON s.game_id = r.game_id
@@ -69,7 +70,7 @@ CREATE TEMPORARY TABLE temp_inclusive_games
 SELECT 
 	s.years, 
 	ROUND(AVG(r.critic_score),2) AS avg_critic_score, 
-    COUNT(s.game_id) AS num_games
+   	COUNT(s.game_id) AS num_games
 FROM videogame_data.sales s
 JOIN videogame_data.reviews r
 ON s.game_id = r.game_id
@@ -82,7 +83,7 @@ CREATE TEMPORARY TABLE temp_top_games
 SELECT 
 	s.years, 
 	ROUND(AVG(r.critic_score),2) AS avg_critic_score, 
-    COUNT(s.game_id) AS num_games
+    	COUNT(s.game_id) AS num_games
 FROM videogame_data.sales s
 JOIN videogame_data.reviews r
 ON s.game_id = r.game_id
@@ -109,7 +110,7 @@ FROM temp_top_games ttg
 SELECT 
 	s.years, 
 	ROUND(AVG(r.user_score),2) AS 'Avg User Score', 
-    COUNT(s.game_id) AS num_games
+    	COUNT(s.game_id) AS num_games
 FROM videogame_data.sales s
 JOIN videogame_data.reviews r
 ON s.game_id = r.game_id
@@ -126,8 +127,8 @@ LIMIT 10
 CREATE TEMPORARY TABLE temp_top_critic_games
 SELECT 
 	s.years, 
-    ROUND(AVG(r.critic_score),2) AS avg_critic_score, 
-    COUNT(s.game_id) AS num_games
+    	ROUND(AVG(r.critic_score),2) AS avg_critic_score, 
+    	COUNT(s.game_id) AS num_games
 FROM videogame_data.sales s
 JOIN videogame_data.reviews r
 ON s.game_id = r.game_id
@@ -141,8 +142,8 @@ LIMIT 10
 CREATE TEMPORARY TABLE temp_top_user_games
 SELECT 
 	s.years, 
-    ROUND(AVG(r.user_score),2) AS avg_user_score, 
-    COUNT(s.game_id) AS num_games
+    	ROUND(AVG(r.user_score),2) AS avg_user_score, 
+    	COUNT(s.game_id) AS num_games
 FROM videogame_data.sales s
 JOIN videogame_data.reviews r
 ON s.game_id = r.game_id
@@ -171,7 +172,7 @@ SELECT years FROM temp_top_critic_games;
 
 SELECT 
 	s.years, 
-    SUM(s.games_sold) AS sum_games_sold
+    	SUM(s.games_sold) AS sum_games_sold
 FROM sales s
 WHERE s.years IN (SELECT years FROM years_top_games)
 GROUP BY s.years
